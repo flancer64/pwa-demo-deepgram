@@ -1,0 +1,85 @@
+@import "./css/all.min.css";
+
+:root {
+    /*--color-lightest: #ebf7e3;*/
+    /*--color-lighter: #9bd770;*/
+    /*--color-main: #66b032;*/
+    /*--color-darker: #375f1b;*/
+    /*--color-darkest: #1b3409;*/
+    --color-lightest: #e9dffb;
+    --color-lighter: #905bec;
+    --color-main: #5a18c9;
+    --color-darker: #300d6e;
+    --color-darkest: #190934;
+    --size-xs: 2px;
+    --size-sm: 5px;
+    --size-md: 10px;
+}
+
+BODY {
+    background-image: linear-gradient(0deg, var(--color-main), var(--color-lightest));
+    color: var(--color-darkest);
+    height: 100vh;
+    margin: 0;
+}
+
+H1 {
+    text-align: center;
+    padding: 0 var(--size-sm) 0 var(--size-sm);
+}
+
+BUTTON {
+    background-color: var(--color-lightest);
+    border-radius: var(--size-md);
+    box-shadow: var(--size-xs) var(--size-xs) var(--size-xs) var(--color-darkest);
+    cursor: pointer;
+    padding: var(--size-md);
+}
+
+INPUT {
+    background-color: var(--color-lightest);
+    width: 95%;
+}
+
+I.fa {
+    color: var(--color-darker);
+}
+
+.container {
+    display: grid;
+    justify-content: center;
+    grid-row-gap: var(--size-sm);
+}
+
+.container > DIV {
+    border-radius: var(--size-md);
+    border: 1px solid var(--color-darkest);
+    grid-row-gap: var(--size-sm);
+}
+
+.config, .control, .info, .results {
+    box-shadow: var(--size-xs) var(--size-xs) var(--size-xs) var(--color-darkest);
+    max-width: 800px;
+    min-width: 300px;
+    padding: var(--size-sm);
+    width: 75vw;
+}
+
+.config {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.control {
+    text-align: center;
+}
+
+.info {
+    text-align: center;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-column-gap: var(--size-xs);
+}

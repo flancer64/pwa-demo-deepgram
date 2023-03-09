@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Deepgram Demo">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deepgram Demo</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="manifest" href="./pwa.json">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            // Register Service Worker on page load (if not registered before)
+            self.addEventListener('load', async () => {
+                const container = navigator.serviceWorker;
+                if (container.controller === null) await container.register('sw.js');
+            });
+        }
+    </script>
+
+    <script>
+        // Matomo
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = "//matomo.service.wiredgeese.com/";
+            _paq.push(['setTrackerUrl', u + 'matomo.php']);
+            _paq.push(['setSiteId', '4']);
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.async = true;
+            g.src = u + 'matomo.js';
+            s.parentNode.insertBefore(g, s);
+        })();
+        // End Matomo Code
+    </script>
+
+</head>
+<body>
+<div class="">
+    <h1>Deepgram Live Speech-To-Text Demo</h1>
+    <div class="container">
+        <div class="config">
+            <div><label for="txtApiKey">API key:</label></div>
+            <div><input id="txtApiKey" type="text"></div>
+            <div><label for="txtLang">Language:</label></div>
+            <div><input id="txtLang" type="text"></div>
+        </div>
+        <div class="control">
+            <button id="btnStart"><i class="fa fa-xl fa-play"></i> Start</button>
+            <button id="btnHelp"><i class="fa fa-xl fa-question-circle"></i></button>
+            <button id="btnStop"><i class="fa fa-xl fa-stop"></i> Stop</button>
+        </div>
+        <div class="info">Press "?" button to get more info.</div>
+        <div class="results">
+            <div>Start</div>
+            <div>Duration</div>
+            <div id="headerLast" style="text-align: center">Text</div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import {initUi} from './js/main.mjs';
+
+    await initUi();
+</script>
+</body>
+</html>
