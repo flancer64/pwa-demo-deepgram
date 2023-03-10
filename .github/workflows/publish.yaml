@@ -29,6 +29,7 @@ jobs:
           echo "remote host: ${{ secrets.REMOTE_HOST_CONTABO }}"
           echo "remote user: ${{env.USER}}"
 
+
       - name: Validate SSH connection.
         uses: appleboy/ssh-action@master
         with:
@@ -39,15 +40,15 @@ jobs:
             pwd
             whoami
 
+
       - name: Copy files to Remote Server.
-        uses: easingthemes/ssh-deploy@v2.0.7
-        env:
-          ARGS: "-rlgoDzvc -i"
-          REMOTE_HOST: "${{secrets.REMOTE_HOST_CONTABO}}"
-          REMOTE_USER: "${{env.USER}}"
-          SOURCE: "${{env.ZIP}}"
-          SSH_PRIVATE_KEY: "${{secrets.SERVER_SSH_KEY_CONTABO}}"
-          TARGET: "${{env.PATH_TARGET}}/"
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST_CONTABO }}
+          username: ${{ env.USER }}
+          key: ${{ secrets.SERVER_SSH_KEY_CONTABO }}
+          source: ${{ env.ZIP }}
+          target: ${{env.PATH_TARGET}}/../
 
       - name: Extract files on Remote Server and switch site to the new instance.
         uses: appleboy/ssh-action@master
