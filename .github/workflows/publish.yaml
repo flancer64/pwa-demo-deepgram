@@ -48,13 +48,6 @@ jobs:
           SOURCE: "${{env.ZIP}}"
           SSH_PRIVATE_KEY: "${{ secrets.SERVER_SSH_KEY_CONTABO }}"
           TARGET: "${{env.PATH_TARGET}}/../"
-          SCRIPT_BEFORE: |
-            whoami
-            ls -al
-          SCRIPT_AFTER: |
-            whoami
-            ls -al
-            echo $RSYNC_STDOUT          
 
       - name: Extract files on Remote Server and switch site to the new instance.
         uses: appleboy/ssh-action@master
