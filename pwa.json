@@ -1,6 +1,6 @@
 {
   "background_color": "#000000",
-  "description": "Simple PWA",
+  "description": "Deepgram Live Speech-To-Text Demo",
   "display": "standalone",
   "icons": [
     {
@@ -18,9 +18,9 @@
     }
   ],
   "id": "/",
-  "name": "Simple PWA",
+  "name": "Deepgram STT",
   "scope": "./",
-  "short_name": "Simple PWA",
+  "short_name": "Deepgram STT",
   "start_url": "./",
   "theme_color": "#000000"
 }

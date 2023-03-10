@@ -1,11 +1,6 @@
 @import "./css/all.min.css";
 
 :root {
-    /*--color-lightest: #ebf7e3;*/
-    /*--color-lighter: #9bd770;*/
-    /*--color-main: #66b032;*/
-    /*--color-darker: #375f1b;*/
-    /*--color-darkest: #1b3409;*/
     --color-lightest: #e9dffb;
     --color-lighter: #905bec;
     --color-main: #5a18c9;
