@@ -24,6 +24,7 @@ jobs:
 
       - name: Validate archive existence and remote host params.
         run: |
+          pwd
           ls -lh ${{env.ZIP}}
           echo "remote host: ${{ secrets.REMOTE_HOST_CONTABO }}"
           echo "remote user: ${{env.USER}}"
@@ -36,6 +37,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY_CONTABO }}
           script: |
             pwd
+            whoami
 
       - name: Copy files to Remote Server.
         uses: easingthemes/ssh-deploy@v2.0.7
