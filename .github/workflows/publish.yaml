@@ -1,0 +1,70 @@
+name: Deploy Deepgram Demo to production env.
+
+# start action manually
+on: workflow_dispatch
+
+env:
+  PATH_TARGET: /home/live/inst/wg/deepgram
+  PRJ: deepgram
+  USER: live
+  ZIP: deepgram.zip
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check-out repo to build env.
+        uses: actions/checkout@v3
+
+      - name: Add application files to archive.
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq --exclude=*.git* -r ${{env.ZIP}} ./
+
+      - name: Validate archive existence and remote host params.
+        run: |
+          ls -lh ${{env.ZIP}}
+          echo "remote host: ${{ secrets.REMOTE_HOST_CONTABO }}"
+          echo "remote user: ${{env.USER}}"
+
+      - name: Validate SSH connection.
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST_CONTABO }}
+          username: ${{ env.USER }}
+          key: ${{ secrets.SERVER_SSH_KEY_CONTABO }}
+          script: |
+            pwd
+
+      - name: Copy files to Remote Server.
+        uses: easingthemes/ssh-deploy@v2.0.7
+        env:
+          ARGS: "-rlgoDzvc -i"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST_CONTABO }}
+          REMOTE_USER: "${{env.USER}}"
+          SOURCE: "${{env.ZIP}}"
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY_CONTABO }}
+          TARGET: "${{env.PATH_TARGET}}/../"
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT          
+
+      - name: Extract files on Remote Server and switch site to the new instance.
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST_CONTABO }}
+          username: ${{ env.USER }}
+          key: ${{ secrets.SERVER_SSH_KEY_CONTABO }}
+          script: |
+            cd "${{env.PATH_TARGET}}/../"
+            rm -fr ${{env.PRJ}}.old/  
+            mkdir ${{env.PRJ}}.new
+            unzip ${{env.ZIP}} -d ./${{env.PRJ}}.new/ &> /dev/null
+            mv ./${{env.PRJ}} ./${{env.PRJ}}.old
+            mv ./${{env.PRJ}}.new ./${{env.PRJ}}
+            ls -lh ./${{env.PRJ}}/
